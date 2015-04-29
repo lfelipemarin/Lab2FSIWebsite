@@ -39,7 +39,7 @@
                     var formData = formToJSON();
                     // process the form
                     $.ajax({
-                        type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                        type: 'PUT', // define the type of HTTP verb we want to use (POST for our form)
                         url: 'http://localhost:8080/WebSite/webresources/json/getWebs/insertWeb', // the url where we want to POST
                         contentType: 'application/json',
                         data: formData, // our data object
