@@ -27,7 +27,7 @@ public class WebsiteModel {
         return webs;
     }
 
-    public void insertWeb(WebsiteDTO web) throws Exception {
+    public WebsiteDTO insertWeb(WebsiteDTO web) throws Exception {
         try {
             WebsiteDAO dao = new WebsiteDAO();
             dao.insertWeb(web);
@@ -35,5 +35,6 @@ public class WebsiteModel {
         } catch (Exception e) {
             throw e;
         }
+        return web;
     }
 }

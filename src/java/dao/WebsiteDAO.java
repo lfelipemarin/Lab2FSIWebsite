@@ -58,7 +58,7 @@ public class WebsiteDAO {
         }
     }
 
-    public void insertWeb(WebsiteDTO web) throws SQLException, Exception {
+    public WebsiteDTO insertWeb(WebsiteDTO web) throws SQLException, Exception {
         String sql = "INSERT INTO website VALUES (?,?,?,?)";
         Connection conn = null;
         PreparedStatement st;
@@ -68,10 +68,13 @@ public class WebsiteDAO {
             st.setInt(1, web.getId());
             st.setString(2, web.getTitle());
             st.setString(3, web.getDescription());
-            st.setString(3, web.getUrl());
-
+            st.setString(4, web.getUrl());
+            st.execute();
         } catch (SQLException e) {
             throw e;
+        } finally {
+            conn.close();
         }
+        return web;
     }
 }

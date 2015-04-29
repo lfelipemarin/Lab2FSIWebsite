@@ -12,11 +12,10 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import model.WebsiteModel;
 
 /**
@@ -26,10 +25,10 @@ import model.WebsiteModel;
  */
 @Path("/json/getWebs")
 public class JSONService {
-    
+
     @Context
     private UriInfo context;
-    
+
     @GET
     @Path("/getFeeds")
     @Produces("application/json")
@@ -47,15 +46,16 @@ public class JSONService {
         }
         return feeds;
     }
-    
-    @PUT
+
+    @POST
     @Path("/insertWeb")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createWebJSON(WebsiteDTO web) throws Exception {
+    @Produces(MediaType.APPLICATION_JSON)
+    public WebsiteDTO createWebJSON(WebsiteDTO web) throws Exception {
         WebsiteModel model = new WebsiteModel();
         model.insertWeb(web);
         String result = "Web saved: " + web;
-        return Response.status(201).entity(result).build();
+        return web;
     }
 //    /**
 //     * Creates a new instance of JSONService
