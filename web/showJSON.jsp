@@ -24,6 +24,7 @@
                 var trHTML = '';
                 var thHTML = '<tr><th>ID</th><th>Titulo</th><th>Descripcion</th><th>URL</th></tr>';
                 $.getJSON("http://localhost:8080/WebSite/webresources/json/getWebs/getFeeds", function (result) {
+                    $('#records_table').empty();
                     $.each(result, function (i, item) {
                         trHTML += '<tr><td>' + item.id + '</td><td>' + item.title + '</td><td>' + item.description + '</td><td>'
                                 + item.url + '</td></tr>';
@@ -43,7 +44,22 @@
                         url: 'http://localhost:8080/WebSite/webresources/json/getWebs/insertWeb', // the url where we want to POST
                         contentType: 'application/json',
                         data: formData, // our data object
-                        dataType: 'json' // what type of data do we expect back from the server
+                        dataType: 'json', // what type of data do we expect back from the server
+                        success: function () {
+                            alert("Insertado");
+                            $('#ok').html("Insertado");
+                            var trHTML = '';
+                            var thHTML = '<tr><th>ID</th><th>Titulo</th><th>Descripcion</th><th>URL</th></tr>';
+                            $.getJSON("http://localhost:8080/WebSite/webresources/json/getWebs/getFeeds", function (result) {
+                                $('#records_table').empty();
+                                $.each(result, function (i, item) {
+                                    trHTML += '<tr><td>' + item.id + '</td><td>' + item.title + '</td><td>' + item.description + '</td><td>'
+                                            + item.url + '</td></tr>';
+                                });
+                                $('#records_table').append(thHTML);
+                                $('#records_table').append(trHTML);
+                            });
+                        }
                     })
                             // using the done promise callback
                             .done(function (data) {
@@ -68,6 +84,8 @@
         </br>
         </br>
         </br>
+        <div id="ok">
+        </div>
         <div style="
              border: 1px solid;
              display: inline-block;
